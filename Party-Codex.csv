@@ -1,0 +1,37 @@
+Party.ID,Name,Full Name,Japanese Name,Color,Color Groupings
+1,LDP,Liberal Democratic Party,©—R–¯å“},forestgreen,Red-Opposition
+2,DPJ,Democratic Party of Japan,–¯å“},darkred,Yellow-Third Force
+3,CGP,Komeito,Œö–¾“},yellow,Blue-Right-Leaning
+4,JCP,Japanese Communist Party,–¯å“},red,Purple-Left-Leaning
+5,SDP,Social Democratic Party,Ğ–¯“},deeppink,Orange-LDP offshoot
+7,KRA,Kobe Renewal Association,‚³‚í‚â‚©_ŒËs–¯‚Ì‰ï,,
+8,OSM,Okinawa Social Mass Party,‰«“êĞ‰ï‘åO“},,
+9,DRP,Democratic Reform Party,–¯å‰üŠv˜A‡,,
+10,NP,National Party,‘–¯“},,
+11,NFP,New Frontier Party,Vi“},darkblue,
+12,LP,Liberal Party,©—R“},mediumpurple,
+13,NCP,New Conservative Party,•Ûç“},darkblue,
+14,CF,Culture Forum,•¶‰»ƒtƒH[ƒ‰ƒ€,grey50,
+15,RC,Reform Club,‰üŠvƒNƒ‰ƒu,blue,
+16,NSP,New Socialist Party,VĞ‰ï“},mediumpurple,
+17,IC,Independents Club,–³Š‘®‚Ì‰ï,grey50,
+18,NPS,New Party Sakigake,V“}‚³‚«‚ª‚¯,grey30,
+19,LL,Liberal League,©—R˜A‡,gold2,
+20,PNP,Peoples New Party,‘–¯V“},gold2,
+21,NPN,New Party Nippon,V“}“ú–{,orange,
+22,NPD,New Party Daichi,V“}‘å’n,mediumpurple4,
+23,RP,Japan Renaissance Party,‰üŠvƒNƒ‰ƒu,blue,
+24,YP,Your Party,‚İ‚ñ‚È‚Ì“},mediumpurple,
+28,NRP,New Renaissance Party,V“}‰üŠv,blue,
+30,JRP,Japan Restoration Party,“ú–{ˆÛV‚Ì“},darkblue,
+31,TPJ,Tomorrow Party of Japan,“ú–{–¢—ˆ‚Ì“},gold2,
+33,PLP,Peoples Life Party,¶Šˆ‚Ì“},gold2,
+34,PFG,Party for Future Generations,Ÿ¢‘ã,blue,
+35,JIP,Japan Innovation Party,ˆÛV‚Ì“},darkblue,
+36,JRA,Japan Restoration Association,ˆÛV‚Ì‰ï,,
+40,POH,Party of Hope,Šó–]‚Ì“},,
+41,CDP,Constitutional Democratic Party,—§Œ›–¯å“},,
+96,IND-LP,LP Associated Independent,–³Š‘®©—R“}Ğ,,
+97,IND-DP,DP Associated Independent,–³Š‘®–¯i“}Ğ,,
+98,Others,Others,‘¼,grey50,
+99,IND,Independent,–³,grey35,

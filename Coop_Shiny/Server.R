@@ -1,7 +1,7 @@
 library(shiny)
-library(RColorBrewer)
-library(rgdal)
-library(scales) # for alpha--transparent colors
+#library(RColorBrewer)
+#library(rgdal)
+#library(scales) # for alpha--transparent colors
 
 ## ALLIANCE HELPER FUNCTIONS ######################
 alliance.depreciate.all<-function(vsmatrix,eff=1){
@@ -322,7 +322,7 @@ shinyServer(function(input, output, session) {
 ## ternary 2 butchered ####
 #    ternary2<-function(cc,main="",legend=FALSE)
       #  x<-c(1,0,0);y<-c(0,1,0);z<-c(0,0,1)
-      iro <- hcl(15 + 90 * 1:4, alpha = 0.2)
+      iro <- hcl(15 + 90 * 1:4, alpha = 0.3)
 #      pch<-c(0,1,5,7,10,9)
 #      cex<-c(0.9,1.2,1.0,1.0,1.3,1.0)
 #      pch<-rep(19,6)
@@ -394,7 +394,7 @@ shinyServer(function(input, output, session) {
       #                   frame=c(1,0.35,-0.15,2,-0.2,1.7),fixed=TRUE){
       #Frame: Quadrant, Scale, xmin,xmax,ymin,ymax
       frame<-c(1,0.35,0,1,0,0.85); fixed<-TRUE
-      col<-iro
+      col<-hcl(15 + 90 * 1:4, alpha = 0.5)
       iro<-matrix(data=NA,nrow=3,ncol=3)
       iro[1,]<-col[1];iro[2,]<-iro[3,]<-col[c(2:4)]
       
@@ -470,7 +470,7 @@ shinyServer(function(input, output, session) {
     ## ternary 2 butchered ####
     #    ternary2<-function(cc,main="",legend=FALSE)
     #  x<-c(1,0,0);y<-c(0,1,0);z<-c(0,0,1)
-    iro <- hcl (h = 15 + 90 * c(0:4), alpha = 0.2 )
+    iro <- hcl (h = 15 + 90 * c(0:4), alpha = 0.3 )
     pch<-rep(19,6)
     cex<-rep(1,6)
 #    pch<-c(0,1,5,7,10,9)
@@ -541,7 +541,7 @@ shinyServer(function(input, output, session) {
     #                   col=c("purple","blue","red","green"),
     #                   frame=c(1,0.35,-0.15,2,-0.2,1.7),fixed=TRUE){
     frame<-c(1,0.35,0,1,0,0.85); fixed<-TRUE
-    col<-iro
+    col<-hcl(15 + 90 * 1:4, alpha = 0.5)
     iro<-matrix(data=NA,nrow=3,ncol=3)
     iro[1,]<-col[1];iro[2,]<-iro[3,]<-col[c(2:4)]
     wl<-as.data.frame(matrix(nrow=3,ncol=3))

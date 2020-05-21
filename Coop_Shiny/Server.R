@@ -1,7 +1,4 @@
 library(shiny)
-#library(RColorBrewer)
-#library(rgdal)
-#library(scales) # for alpha--transparent colors
 
 ## ALLIANCE HELPER FUNCTIONS ######################
 alliance.depreciate.all<-function(vsmatrix,eff=1){

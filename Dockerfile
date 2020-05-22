@@ -1,29 +1,34 @@
-FROM rocker/r-ver:3.6.3
+# get shiny serves plus tidyverse packages image
+FROM rocker/shiny-verse:latest
 
+# system libraries of general use
 RUN apt-get update && apt-get install -y \
-	sudo \
-	gdebi-core \
-	pandoc \
-	pandoc-citeproc \
-	libcurl4-gnutls-dev \
-	libcairo2-dev \
-	libxt-dev \
-	xtail \
-	wget
+    sudo \
+    pandoc \
+    pandoc-citeproc \
+    libcurl4-gnutls-dev \
+    libcairo2-dev \
+    libxt-dev \
+    libssl-dev \
+    libssh2-1-dev 
+  
 
+# install R packages required 
+# (change it dependeing on the packages you need)
+RUN R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinythemes', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('rgdal', repos = 'http://cran.rstudio.com/')"
 
-RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
-	VERSION=$(cat version.txt) && \
-	wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
-	gdebi -n ss-latest.deb && \
-	rm -f version.txt ss-latest.deb && \
-	. /etc/environment && \
-	R -e "install.packages(c('shiny'), repos='$MRAN')" && \
-	cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
-	chown shiny:shiny /var/lib/shiny-server
-	
+# copy the app to the image
+COPY Japanese_Elections.Rproj /srv/shiny-server/
+COPY app.R /srv/shiny-server/
+COPY R /srv/shiny-server/R
+
+# select port
 EXPOSE 3838
 
-COPY shiny-server.sh /usr/bin/shiny-server.sh
+# allow permission
+RUN sudo chown -R shiny:shiny /srv/shiny-server
 
+# run app
 CMD ["/usr/bin/shiny-server.sh"]

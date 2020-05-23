@@ -250,10 +250,10 @@ block<-function(d){
 
 
 ## RETRIEVE DATA #############################################################################################
-ken.codex<-read.delim( paste0(getwd(), "/Data/kenCodex.csv"),sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
-jElections<-read.csv( paste0(getwd(), "/Data/smdResults.csv"),sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
-jpr<-read.delim( paste0(getwd(), "/Data/prResults.csv"),sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')[,-1]
-jcode<-read.delim( paste0(getwd(), "/Data/PartyCodex.csv"),sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
+ken.codex<-read.delim( "Data/kenCodex.csv",sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
+jElections<-read.csv( "Data/smdResults.csv",sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
+jpr<-read.delim( "Data/prResults.csv",sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')[,-1]
+jcode<-read.delim( "Data/PartyCodex.csv",sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
 jcode<-rbind(jcode,c(100,"NOO","The FAKE Party","MU","",""))
 jcode[,1]<-as.numeric(jcode[,1])
 #jElections<-rbind(jElections,data.frame("id"=c(144794+1:5),"pref"=rep(47,5),"dist"= c(94+1:5),"n.can"= rep(1,5),"win"= rep(2,5),
@@ -263,7 +263,7 @@ jcode[,1]<-as.numeric(jcode[,1])
 # Adding dud data that should be automatically excluded to deal with a problem that seems unique to Shiny
 
 
-japgeo<-readOGR(dsn=paste0(getwd(), "/Data/jpmap/jp_grid_ken_pgn.shp"),stringsAsFactors = FALSE)
+japgeo<-readOGR(dsn="Data/jpmap/jp_grid_ken_pgn.shp",stringsAsFactors = FALSE)
 japgeo$NAME2[japgeo$NAME2=="Gumma"]<-"Gunma"
 japgeo$NAME2[japgeo$NAME2=="Okajama"]<-"Okayama"
 japgeo$NAME2[japgeo$NAME2=="Tshiba"]<-"Chiba"

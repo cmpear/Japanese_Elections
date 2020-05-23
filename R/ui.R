@@ -3,8 +3,8 @@ library(shinythemes)
 library(rgdal)
 
 # Retrieve Data ####
-jcode<-read.delim('Data/PartyCodex.csv',sep=",",stringsAsFactors=FALSE,encoding = 'Windows-932')
-print.table(jcode)
+#jcode<-read.delim(file.path(path, 'Data/PartyCodex.csv'),sep=",",stringsAsFactors=FALSE)
+#print.table(jcode)
 # SHINY CODE ####
 
 shinyUI(fluidPage(

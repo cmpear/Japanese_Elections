@@ -76,10 +76,10 @@ block<-function(d){
 ## RETRIEVE DATA #############################################################################################
 # having trouble with data-loading later on, so moving data-loading here
 # original problem seems to have been some random characters that got inserted into a function, but still makes more sense to load data and use as globals.
-ken.codex<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/kenCodex.csv",sep=",",stringsAsFactors=FALSE)
-jElections<-read.csv( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/smdResults.csv",sep=",",stringsAsFactors=FALSE)
-jpr<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/prResults.csv",sep=",",stringsAsFactors=FALSE)[,-1]
-jcode<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/PartyCodex.csv",sep=",",stringsAsFactors=FALSE)
+ken.codex<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/data/kenCodex.csv",sep=",",stringsAsFactors=FALSE)
+jElections<-read.csv( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/data/smdResults.csv",sep=",",stringsAsFactors=FALSE)
+jpr<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/data/prResults.csv",sep=",",stringsAsFactors=FALSE)[,-1]
+jcode<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/data/PartyCodex.csv",sep=",",stringsAsFactors=FALSE)
 jcode<-rbind(jcode,c(100,"NOO","The FAKE Party","MU","",""))
 jcode[,1]<-as.numeric(jcode[,1])
 #jElections<-rbind(jElections,data.frame("id"=c(144794+1:5),"pref"=rep(47,5),"dist"= c(94+1:5),"n.can"= rep(1,5),"win"= rep(2,5),
@@ -97,7 +97,7 @@ jcode[,1]<-as.numeric(jcode[,1])
 #file.path(getwd(), 'R' )
 #print(path)
 
-print("AAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+#print("AAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
 
 options(shiny.host = '0.0.0.0')
 options(shiny.port = 8080)

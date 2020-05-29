@@ -1,0 +1,9 @@
+{
+    "AESEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "cmpear/alliance_builder"
+    },
+    "Ports": [
+        {"ContainerPort": "8080" }
+    ]
+}

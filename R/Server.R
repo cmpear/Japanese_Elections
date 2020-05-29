@@ -1,4 +1,6 @@
-library(shiny)
+#!/usr/bin/env Rscript
+
+#library(shiny)
 
 ## ALLIANCE HELPER FUNCTIONS ######################
 alliance.depreciate.all<-function(vsmatrix,eff=1){
@@ -60,50 +62,50 @@ ternary.cc<-function(year,a1,a2,a3=NULL,hyp=TRUE,eff=1,mar=10){
 
 
 ## MAP FUNCTIONS ####
-merge_map<-function(d,d.criteria,col=hcl(240/9 * 1:9),fixedPR=FALSE){
-  # d is a dataframe, c1=criteria, c2=data for ken
-  # originally had an input for map data, but decided this would be faster if I just used global variable japgeo
-  # the return vaue for this should be a matrix with c1=data and c2=colors; should be sorted to match ken.japgeo)
-  #NOTE: japgeo prefectures are not only out of order, but entries for the same prefecture are not even all next to each other
-  
-  #  d<-jElections[jElections$party==1 & jElections$year==2005 & jElections$dist==1,c(2,13)]
-  u.rows<-NROW(unique(d[,2]))
-  # c1=min, c2=color
-  ncolors<-NROW(col)
-  iro<-matrix(data=NA,nrow=ncolors,ncol=2)
-  iro[,2]<-col
-  if (fixedPR){
-    iro[,1]<-c(0,0.10,0.20,5:10*5/100)
-  }else if (u.rows==ncolors){
-    start<-0
-    for (i in 1:u.rows)
-    {
-      iro[i,1]<-as.numeric(unique(d[,2])[i])
-    }
-  }else if (u.rows>ncolors){
-    start<-min(d[,2])
-    gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
-    for (i in 1:ncolors)
-    {
-      iro[i,1]<-start + gap * (i-1)
-    }
-  }
-  d.return<-as.data.frame(matrix(data=NA,ncol=2,nrow=NROW(japgeo)))
-  for (i in 1:47)
-  {
-    logi<-(ken.japgeo==i)
-    logi2<-d[,1]==i
-    if (NROW(d[logi2,2])==0) {
-      d.return[logi,1]<-0
-      d.return[logi,2]<-    iro[sum (start>=iro[,1]),2]      
-    }
-    else {
-      d.return[logi,1]<-d[logi2,2]
-      d.return[logi,2]<-    iro[sum (d[logi2,2]>=iro[,1]),2]      
-    }
-  }
-  return(d.return)
-}
+# merge_map<-function(d,d.criteria,col=hcl(240/9 * 1:9),fixedPR=FALSE){
+#   # d is a dataframe, c1=criteria, c2=data for ken
+#   # originally had an input for map data, but decided this would be faster if I just used global variable japgeo
+#   # the return vaue for this should be a matrix with c1=data and c2=colors; should be sorted to match ken.japgeo)
+#   #NOTE: japgeo prefectures are not only out of order, but entries for the same prefecture are not even all next to each other
+#   
+#   #  d<-jElections[jElections$party==1 & jElections$year==2005 & jElections$dist==1,c(2,13)]
+#   u.rows<-NROW(unique(d[,2]))
+#   # c1=min, c2=color
+#   ncolors<-NROW(col)
+#   iro<-matrix(data=NA,nrow=ncolors,ncol=2)
+#   iro[,2]<-col
+#   if (fixedPR){
+#     iro[,1]<-c(0,0.10,0.20,5:10*5/100)
+#   }else if (u.rows==ncolors){
+#     start<-0
+#     for (i in 1:u.rows)
+#     {
+#       iro[i,1]<-as.numeric(unique(d[,2])[i])
+#     }
+#   }else if (u.rows>ncolors){
+#     start<-min(d[,2])
+#     gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
+#     for (i in 1:ncolors)
+#     {
+#       iro[i,1]<-start + gap * (i-1)
+#     }
+#   }
+#   d.return<-as.data.frame(matrix(data=NA,ncol=2,nrow=NROW(japgeo)))
+#   for (i in 1:47)
+#   {
+#     logi<-(ken.japgeo==i)
+#     logi2<-d[,1]==i
+#     if (NROW(d[logi2,2])==0) {
+#       d.return[logi,1]<-0
+#       d.return[logi,2]<-    iro[sum (start>=iro[,1]),2]      
+#     }
+#     else {
+#       d.return[logi,1]<-d[logi2,2]
+#       d.return[logi,2]<-    iro[sum (d[logi2,2]>=iro[,1]),2]      
+#     }
+#   }
+#   return(d.return)
+# }
 
 ## FUNCTIONS FOR REARRANGING ELECTION DATA ################################
 #Given a party, year, and list of IDs, returns 
@@ -367,20 +369,20 @@ shinyServer(function(input, output, session) {
       text(x=x.low+.8*x.reduce,y=y.low,labels=0,pos=2,col="black",cex=0.7)
 ## END TERNARY FUNCTIONS ####
   })
-  output$map.plot <-renderPlot({
-    # show support levels for alliance 1
-    iro<-hcl(240/9 * 1:9)
-    d<-merge_map(d=cbind(unique(cc()[,2]),
-                         tapply(cc()[,3+input$map12%%2],cc()[,2],FUN="mean")),
-                 "pref",col=iro,fixedPR=TRUE)
-    #    start<-min(d[,2])
-    #    gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
-    main<-paste(input$year,"Average District Support for",names(cc())[3+input$map12%%2])
-    scale<-c("00%<=support<10%","10%<=support<20%","20%<=support<25%","25%<=support<30%","30%<=support<35%","35%<=support<40%","40%<=support<45%","45%<=support<50%","50%<=support")
-    plot(japgeo,col=d[,2],main=main)
-    text(121,46:38,pos=4,labels=scale)
-    points(rep(120,9),46:38,pch=22,bg=iro,col="black",cex=1.5)
-  })
+  # output$map.plot <-renderPlot({
+  #   # show support levels for alliance 1
+  #   iro<-hcl(240/9 * 1:9)
+  #   d<-merge_map(d=cbind(unique(cc()[,2]),
+  #                        tapply(cc()[,3+input$map12%%2],cc()[,2],FUN="mean")),
+  #                "pref",col=iro,fixedPR=TRUE)
+  #   #    start<-min(d[,2])
+  #   #    gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
+  #   main<-paste(input$year,"Average District Support for",names(cc())[3+input$map12%%2])
+  #   scale<-c("00%<=support<10%","10%<=support<20%","20%<=support<25%","25%<=support<30%","30%<=support<35%","35%<=support<40%","40%<=support<45%","45%<=support<50%","50%<=support")
+  #   plot(japgeo,col=d[,2],main=main)
+  #   text(121,46:38,pos=4,labels=scale)
+  #   points(rep(120,9),46:38,pch=22,bg=iro,col="black",cex=1.5)
+  # })
 
 ########################################################################################################################################################################
 ########################################################################################################################################################################
@@ -519,19 +521,19 @@ shinyServer(function(input, output, session) {
 #    last.cc<<-cc
     ## END TERNARY FUNCTIONS ####
     })
-   output$map.plot.saved <-renderPlot({
-     iro<-hcl(240/9 * 1:9)
-     d<-merge_map(d=cbind(unique(saved[,2]),
-                          tapply(saved[,3+input$map12%%2],saved[,2],FUN="mean")),
-                  "pref",col=iro,fixedPR=TRUE)
-     #    start<-min(d[,2])
-     #    gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
-     scale<-c("00%<=support<10%","10%<=support<20%","20%<=support<25%","25%<=support<30%","30%<=support<35%","35%<=support<40%","40%<=support<45%","45%<=support<50%","50%<=support")
-     plot(japgeo,col=d[,2],main=saved.plot.title[1+input$map12%%2])
-     text(121,46:38,pos=4,labels=scale)
-     points(rep(120,9),46:38,pch=22,bg=iro,col="black",cex=1.5)
-          #  abline(h=24:46); abline(v=113:156)
-   })
+   # output$map.plot.saved <-renderPlot({
+   #   iro<-hcl(240/9 * 1:9)
+   #   d<-merge_map(d=cbind(unique(saved[,2]),
+   #                        tapply(saved[,3+input$map12%%2],saved[,2],FUN="mean")),
+   #                "pref",col=iro,fixedPR=TRUE)
+   #   #    start<-min(d[,2])
+   #   #    gap<-(range(d[,2])[2]-range(d[,2])[1])/(ncolors)
+   #   scale<-c("00%<=support<10%","10%<=support<20%","20%<=support<25%","25%<=support<30%","30%<=support<35%","35%<=support<40%","40%<=support<45%","45%<=support<50%","50%<=support")
+   #   plot(japgeo,col=d[,2],main=saved.plot.title[1+input$map12%%2])
+   #   text(121,46:38,pos=4,labels=scale)
+   #   points(rep(120,9),46:38,pch=22,bg=iro,col="black",cex=1.5)
+   #        #  abline(h=24:46); abline(v=113:156)
+   # })
   })
 })
 

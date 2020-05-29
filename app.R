@@ -1,5 +1,8 @@
+#!/usr/bin/env Rscript
+
 library(shiny)
-#path <<- file.path(dirname(parent.frame(2)$ofile), 'R')
+library(shinythemes)
+
 path <<- 'R'
 
 ## ENCODE & DECODE FUNCTIONS #####################
@@ -73,10 +76,10 @@ block<-function(d){
 ## RETRIEVE DATA #############################################################################################
 # having trouble with data-loading later on, so moving data-loading here
 # original problem seems to have been some random characters that got inserted into a function, but still makes more sense to load data and use as globals.
-ken.codex<-read.delim( file.path(path, "Data/kenCodex.csv"),sep=",",stringsAsFactors=FALSE)
-jElections<-read.csv( file.path(path, "Data/smdResults.csv"),sep=",",stringsAsFactors=FALSE)
-jpr<-read.delim( file.path(path, "Data/prResults.csv"),sep=",",stringsAsFactors=FALSE)[,-1]
-jcode<-read.delim( file.path(path, "Data/PartyCodex.csv"),sep=",",stringsAsFactors=FALSE)
+ken.codex<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/kenCodex.csv",sep=",",stringsAsFactors=FALSE)
+jElections<-read.csv( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/smdResults.csv",sep=",",stringsAsFactors=FALSE)
+jpr<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/prResults.csv",sep=",",stringsAsFactors=FALSE)[,-1]
+jcode<-read.delim( "https://raw.githubusercontent.com/cmpear/Japanese_Elections/master/R/Data/PartyCodex.csv",sep=",",stringsAsFactors=FALSE)
 jcode<-rbind(jcode,c(100,"NOO","The FAKE Party","MU","",""))
 jcode[,1]<-as.numeric(jcode[,1])
 #jElections<-rbind(jElections,data.frame("id"=c(144794+1:5),"pref"=rep(47,5),"dist"= c(94+1:5),"n.can"= rep(1,5),"win"= rep(2,5),
@@ -86,14 +89,24 @@ jcode[,1]<-as.numeric(jcode[,1])
 # Adding dud data that should be automatically excluded to deal with a problem that seems unique to Shiny
 
 
-japgeo<-readOGR(dsn=file.path(path, "Data/jpmap/jp_grid_ken_pgn.shp"),stringsAsFactors = FALSE)
-japgeo$NAME2[japgeo$NAME2=="Gumma"]<-"Gunma"
-japgeo$NAME2[japgeo$NAME2=="Okajama"]<-"Okayama"
-japgeo$NAME2[japgeo$NAME2=="Tshiba"]<-"Chiba"
-ken.japgeo<-unlist(kencode(japgeo$NAME2))
+# japgeo<-readOGR(dsn=file.path(path, "data/jpmap/jp_grid_ken_pgn.shp"),stringsAsFactors = FALSE)
+# japgeo$NAME2[japgeo$NAME2=="Gumma"]<-"Gunma"
+# japgeo$NAME2[japgeo$NAME2=="Okajama"]<-"Okayama"
+# japgeo$NAME2[japgeo$NAME2=="Tshiba"]<-"Chiba"
+# ken.japgeo<-unlist(kencode(japgeo$NAME2))
 #file.path(getwd(), 'R' )
 #print(path)
 
+print("AAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+
+options(shiny.host = '0.0.0.0')
+options(shiny.port = 8080)
 shiny::runApp(appDir = path)
+
+
+# Project Notes: Current the map functionality is disabled, as rgdal is difficult to install on linux and
+# has compatibility issues with the latest version of R.  Possible solutions are to either to get it up and
+# running, or use an alternative mapping solution.  Perhaps go with ggmap, but that would require ggplot.
+# Maybe we can get around needing rgdal with the fortify function to transform a shapefile into a csv.
 
 

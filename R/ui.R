@@ -1,6 +1,8 @@
-library(shiny)
-library(shinythemes)
-library(rgdal)
+#!/usr/bin/env Rscript
+
+#library(shiny)
+#library(shinythemes)
+#library(rgdal)  ## rgdal has issues with linux, can get it working here, but docker is another matter
 
 # Retrieve Data ####
 #jcode<-read.delim(file.path(path, 'Data/PartyCodex.csv'),sep=",",stringsAsFactors=FALSE)
@@ -58,14 +60,14 @@ shinyUI(fluidPage(
           plotOutput("ternaryPlot",height=600,width=600)),
         column(6,
           plotOutput("ternaryPlot.saved",height=600,width=600))
-      ),
-#      plotOutput("map.plot",height=600,width=600)
-      fluidRow(
-        column(6,
-               plotOutput("map.plot",height=600,width=600)),
-        column(6,
-               plotOutput("map.plot.saved",height=600,width=600))
       )
+      # ,
+      # fluidRow(
+      #   column(6,
+      #          plotOutput("map.plot",height=600,width=600)),
+      #   column(6,
+      #          plotOutput("map.plot.saved",height=600,width=600))
+      # )
     )
   )
 ))
